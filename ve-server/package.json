@@ -1,0 +1,27 @@
+{
+	"name": "ve-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"author": "zhangxinyu",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.18.2",
+		"express": "^4.16.3",
+		"mongoose": "^5.0.10",
+		"pug": "^2.0.1"
+	},
+	"devDependencies": {
+		"bcrypt": "^1.0.3",
+		"formidable": "^1.2.1",
+		"grunt": "^1.0.2",
+		"grunt-concurrent": "^2.3.1",
+		"grunt-contrib-watch": "^1.0.0",
+		"grunt-nodemon": "^0.4.2",
+		"serve-static": "^1.13.2"
+	}
+}
