@@ -15,12 +15,12 @@ class SetLuyouProcess extends React.Component {
   }
   componentWillMount () {
     const xiangdao = [
-        {src:'../src/img/win2008/luyou_1.png'},
-        {src:'../src/img/win2008/new_luyou0.png'},
-        {src:'../src/img/win2008/new_luyou1.png'},
+        {src:'../src/img/win2008/luyou_1.png',next:{left:'166',bottom:'344',width:'70',height:'20'},retur:{left:'696',bottom:'529',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/new_luyou0.png',next:{left:'196',bottom:'325',width:'160',height:'24'},retur:{left:'698',bottom:'529',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/new_luyou1.png',next:{left:'376',bottom:'388',width:'120',height:'20'},retur:{left:'504',bottom:'196',width:'75',height:'22'}},
       ]
     this.setState({img: xiangdao});
-    this.setState({currentImg: xiangdao[0].src});
+    this.setState({currentImg: xiangdao[0]});
     this.setState({luyoulist: this.props.luyoulist});
   }
   _returnBtn () {
@@ -29,7 +29,7 @@ class SetLuyouProcess extends React.Component {
     } else {
       this.setState({showForm: false});
       const index = parseInt(this.state.index - 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
@@ -38,12 +38,12 @@ class SetLuyouProcess extends React.Component {
       this.setState({showForm: true});
     } else {
       const index = parseInt(this.state.index + 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
   _listBtn () {
-    this.setState({currentImg: this.state.img[index].src});
+    //this.setState({currentImg: this.state.img[index]});
   }
   _submitBtn () {
     const target = document.getElementById('target').children;
@@ -75,13 +75,28 @@ class SetLuyouProcess extends React.Component {
     this.props.changestate(luyouData);
   }
   render () {
-    const { showForm } = this.state;
+    const { showForm, index } = this.state;
     const _style = {
       ipform: {width:'24',height:'15',border:'none',marginRight:'6'},
       interface: {width:'800px',height:'600px',overflow:'hidden',margin:'0 auto'},
-      btn: {position:'absolute',left:'54',bottom:'0',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'},
-      btn1: {position:'absolute',left:'310',bottom:'180',width:'150',height:'35',border:'1px solid red',cursor:'pointer'},
-      btn2: {position:'absolute',left:'310',bottom:'120',width:'150',height:'35',border:'1px solid red',cursor:'pointer'},
+      retur: {
+        position:'absolute',
+        left: this.state.currentImg.retur.left || '54',
+        bottom: this.state.currentImg.retur.bottom || '0',
+        width: this.state.currentImg.retur.width || '50px',
+        height: this.state.currentImg.retur.height || '40px',
+        cursor:'pointer'
+      },
+      next: {
+        position:'absolute',
+        left: this.state.currentImg.next.left || '310',
+        bottom: this.state.currentImg.next.bottom || '180',
+        width: this.state.currentImg.next.width || '150',
+        height: this.state.currentImg.next.height || '35',
+        cursor:'pointer'
+      },
+      list: {position:'absolute',left:'196',bottom:'300',width:'160',height:'24',cursor:'pointer'},
+      submit: {position:'absolute',left:'424',bottom:'196',width:'75',height:'22',cursor:'pointer'},
     }
     const form = (
       <div style={{position:'absolute',left:'380',top:'195'}}>
@@ -110,12 +125,12 @@ class SetLuyouProcess extends React.Component {
     );
     return(
       <div style={_style.interface}>
-        <img src={this.state.currentImg} />
-        <div onClick={this._returnBtn.bind(this)} style={_style.btn}></div>
-        {!showForm && <div onClick={this._nextBtn.bind(this)} style={_style.btn1}></div>}
-        {!showForm && <div onClick={this._listBtn.bind(this)} style={_style.btn2}></div>}
+        <img src={this.state.currentImg.src} />
+        <div onClick={this._returnBtn.bind(this)} style={_style.retur}></div>
+        {!showForm && <div onClick={this._nextBtn.bind(this)} style={_style.next}></div>}
+        { index == 1 && <div onClick={this._listBtn.bind(this)} style={_style.list}></div>}
         {showForm && <div>{form}</div>}
-        {showForm && <div onClick={this._submitBtn.bind(this)} style={_style.btn1}></div>}
+        {showForm && <div onClick={this._submitBtn.bind(this)} style={_style.submit}></div>}
       </div>
     );
   }
@@ -134,22 +149,21 @@ class LuyouProcess extends React.Component {
   }
   componentWillMount () {
     const luyou = [
-        {src:'../src/img/win2008/luyou_0.png'},
-        {src:'../src/img/win2008/luyou_xiangdao0.png'},
-        {src:'../src/img/win2008/luyou_xiangdao1.png'},
-        {src:'../src/img/win2008/luyou_xiangdao2.png'},
-        {src:'../src/img/win2008/luyou_xiangdao3.png'},
-        {src:'../src/img/win2008/luyou_xiangdao4.png'},
-        {src:'../src/img/win2008/luyou_xiangdao5.png'},
-        {src:'../src/img/win2008/luyou_xiangdao6.png'},
-        {src:'../src/img/win2008/luyou_xiangdao7.png'},
-        {src:'../src/img/win2008/luyou_1.png'}
+        {src:'../src/img/win2008/luyou_0.png',next:{left:'160',bottom:'428',width:'160px',height:'20px'},retur:{left:'748',bottom:'532',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/luyou_xiangdao0.png',next:{left:'220',bottom:'416',width:'200px',height:'22px'},retur:{left:'746',bottom:'532',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/luyou_xiangdao1.png',next:{left:'530',bottom:'150',width:'75px',height:'22px'},retur:{left:'615',bottom:'150',width:'75px',height:'22px'}},
+        {src:'../src/img/win2008/luyou_xiangdao2.png',next:{left:'245',bottom:'237',width:'15px',height:'15px'},retur:{left:'615',bottom:'150',width:'75px',height:'22px'}},
+        {src:'../src/img/win2008/luyou_xiangdao3.png',next:{left:'493',bottom:'148',width:'75px',height:'22px'},retur:{left:'578',bottom:'148',width:'75px',height:'22px'}},
+        {src:'../src/img/win2008/luyou_xiangdao4.png',next:{left:'249',bottom:'298',width:'15px',height:'15px'},retur:{left:'615',bottom:'150',width:'75px',height:'22px'}},
+        {src:'../src/img/win2008/luyou_xiangdao5.png',next:{left:'493',bottom:'148',width:'75px',height:'22px'},retur:{left:'578',bottom:'148',width:'75px',height:'22px'}},
+        {src:'../src/img/win2008/luyou_xiangdao6.png',next:{left:'530',bottom:'150',width:'75px',height:'22px'},retur:{left:'615',bottom:'150',width:'75px',height:'22px'}},
+        {src:'../src/img/win2008/luyou_xiangdao7.png',next:{left:'450',bottom:'268',width:'75px',height:'22px'},retur:{left:'535',bottom:'268',width:'75px',height:'22px'}}
       ]
     this.setState({img: luyou});
     if (this.props.luyouserver) {
       this.setState({isServer: true});
     } else {
-      this.setState({currentImg: luyou[0].src});
+      this.setState({currentImg: luyou[0]});
     }
   }
   _returnBtn () {
@@ -157,17 +171,17 @@ class LuyouProcess extends React.Component {
 
     } else {
       const index = parseInt(this.state.index - 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
   _nextBtn () {
-    if (this.state.index == 9) {
+    if (this.state.index == 8) {
       this.setState({isServer: true});
       this.props.changestate(this.state.isServer);
     } else {
       const index = parseInt(this.state.index + 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
@@ -178,15 +192,29 @@ class LuyouProcess extends React.Component {
     const { isTool, componentProcess, isServer } = this.state;
     const _style = {
       interface: {width:'800px',height:'600px',overflow:'hidden',margin:'0 auto'},
-      btn: {position:'absolute',left:'54',bottom:'0',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'},
-      btn1: {position:'absolute',left:'310',bottom:'180',width:'150',height:'35',border:'1px solid red',cursor:'pointer'},
+      btn: {
+        position:'absolute',
+        left: this.state.currentImg.retur.left || '54',
+        bottom: this.state.currentImg.retur.bottom || '0',
+        width: this.state.currentImg.retur.width || '50px',
+        height: this.state.currentImg.retur.height || '40px',
+        cursor:'pointer'
+      },
+      btn1: {
+        position:'absolute',
+        left: this.state.currentImg.next.left || '310',
+        bottom: this.state.currentImg.next.bottom || '180',
+        width: this.state.currentImg.next.width || '150',
+        height: this.state.currentImg.next.height || '35',
+        cursor:'pointer'
+      },
     }
     if (isServer) {
       return(<SetLuyouProcess {...this.props} changestate={this._changestate.bind(this)}  />);
     }
     return(
       <div style={_style.interface}>
-        <img src={this.state.currentImg} />
+        <img src={this.state.currentImg.src} />
         <div onClick={this._returnBtn.bind(this)} style={_style.btn}></div>
         <div onClick={this._nextBtn.bind(this)} style={_style.btn1}></div>
       </div>
@@ -207,23 +235,23 @@ class ComponentProcess extends React.Component {
   }
   componentWillMount () {
     const xiangdao = [
-        {src:'../src/img/win2008/fuwuqiguanliqi.png'},
-        {src:'../src/img/win2008/xiangdao1.png'},
-        {src:'../src/img/win2008/xiangdao2.png'},
-        {src:'../src/img/win2008/xiangdao3.png'},
-        {src:'../src/img/win2008/xiangdao4.png'},
-        {src:'../src/img/win2008/xiangdao5.png'},
-        {src:'../src/img/win2008/xiangdao6.png'}
+        {src:'../src/img/win2008/fuwuqiguanliqi.png',next:{left:'590',bottom:'365',width:'80px',height:'20px'},retur:{left:'810',bottom:'575',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/xiangdao1.png',next:{left:'545',bottom:'45',width:'80px',height:'20px'},retur:{left:'800',bottom:'580',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/xiangdao2.png',next:{left:'268',bottom:'230',width:'15px',height:'15px'},retur:{left:'460',bottom:'45',width:'80px',height:'20px'}},
+        {src:'../src/img/win2008/xiangdao3.png',next:{left:'545',bottom:'45',width:'80px',height:'20px'},retur:{left:'460',bottom:'45',width:'80px',height:'20px'}},
+        {src:'../src/img/win2008/xiangdao4.png',next:{left:'287',bottom:'422',width:'15px',height:'15px'},retur:{left:'460',bottom:'45',width:'80px',height:'20px'}},
+        {src:'../src/img/win2008/xiangdao5.png',next:{left:'545',bottom:'45',width:'80px',height:'20px'},retur:{left:'460',bottom:'45',width:'80px',height:'20px'}},
+        {src:'../src/img/win2008/xiangdao6.png',next:{left:'630',bottom:'45',width:'80px',height:'20px'},retur:{left:'810',bottom:'575',width:'20px',height:'20px'}}
       ]
     this.setState({img: xiangdao});
-    this.setState({currentImg: xiangdao[0].src});
+    this.setState({currentImg: xiangdao[0]});
   }
   _returnBtn () {
     if (this.state.index == 0) {
 
     } else {
       const index = parseInt(this.state.index - 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
@@ -233,7 +261,7 @@ class ComponentProcess extends React.Component {
       this.props.changestate(this.state.isScusese)
     } else {
       const index = parseInt(this.state.index + 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
@@ -241,12 +269,26 @@ class ComponentProcess extends React.Component {
     const { isTool, componentProcess } = this.state;
     const _style = {
       interface: {width:'800px',height:'600px',overflow:'hidden',margin:'0 auto'},
-      btn: {position:'absolute',left:'54',bottom:'0',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'},
-      btn1: {position:'absolute',left:'310',bottom:'180',width:'150',height:'35',border:'1px solid red',cursor:'pointer'},
+      btn: {
+        position:'absolute',
+        left: this.state.currentImg.retur.left || '150',
+        bottom: this.state.currentImg.retur.bottom || '180',
+        width: this.state.currentImg.retur.width || '50px',
+        height: this.state.currentImg.retur.height || '40px',
+        cursor:'pointer'
+      },
+      btn1: {
+        position:'absolute',
+        left: this.state.currentImg.next.left || '300',
+        bottom: this.state.currentImg.next.bottom || '180',
+        width: this.state.currentImg.next.width || '150',
+        height: this.state.currentImg.next.height || '35',
+        cursor:'pointer'
+      },
     }
     return(
       <div style={_style.interface}>
-        <img src={this.state.currentImg} />
+        <img src={this.state.currentImg.src}/>
         <div onClick={this._returnBtn.bind(this)} style={_style.btn}></div>
         <div onClick={this._nextBtn.bind(this)} style={_style.btn1}></div>
       </div>
@@ -274,15 +316,17 @@ class ManageToolProcess extends React.Component {
       manangetool2: {src:'../src/img/win2008/guanligongju_2.png'}
     }
     this.setState({img: imgObject});
-    this.setState({currentImg: imgObject.startpanel.src});
+    this.setState({currentImg: imgObject.startpanel});
   }
-  _returnBtn () {}
+  _returnBtn () {
+    this.props.changestate({})
+  }
   _toolBtn () {
     if (this.props.isLuyou) {
-      this.setState({currentImg: this.state.img.manangetool2.src});
+      this.setState({currentImg: this.state.img.manangetool2});
       this.setState({isLuyou: true});
     } else {
-      this.setState({currentImg: this.state.img.manangetool.src});
+      this.setState({currentImg: this.state.img.manangetool});
       this.setState({isTool: true});
     }
   }
@@ -309,10 +353,10 @@ class ManageToolProcess extends React.Component {
     const { isTool, isLuyou, componentProcess, luyouProcess } = this.state;
     const _style = {
       interface: {width:'800px',height:'600px',overflow:'hidden',margin:'0 auto'},
-      btn: {position:'absolute',left:'54',bottom:'0',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'},
-      btn1: {position:'absolute',left:'310',bottom:'180',width:'150',height:'35',border:'1px solid red',cursor:'pointer'},
-      btn2: {position:'absolute',left:'455',bottom:'355',width:'205',height:'25',border:'1px solid red',cursor:'pointer'},
-      btn3: {position:'absolute',left:'455',bottom:'255',width:'205',height:'25',border:'1px solid red',cursor:'pointer'},
+      btn: {position:'absolute',left:'34',bottom:'0',width:'50px',height:'40px',cursor:'pointer'},
+      btn1: {position:'absolute',left:'290',bottom:'180',width:'140',height:'35',cursor:'pointer'},
+      btn2: {position:'absolute',left:'435',bottom:'355',width:'205',height:'25',cursor:'pointer'},
+      btn3: {position:'absolute',left:'435',bottom:'142',width:'205',height:'25',cursor:'pointer'},
     }
     if (componentProcess == true) {
       return(<ComponentProcess changestate={this._changestate1.bind(this)} />);
@@ -326,7 +370,7 @@ class ManageToolProcess extends React.Component {
     }
     return(
       <div style={_style.interface}>
-        <img src={this.state.currentImg} />
+        <img src={this.state.currentImg.src} />
         <div onClick={this._returnBtn.bind(this)} style={_style.btn}></div>
         <div onClick={this._toolBtn.bind(this)} style={_style.btn1}></div>
         { isTool && <div onClick={this._componentBtn.bind(this)} style={_style.btn2}></div>}
@@ -350,24 +394,24 @@ class SetIpProcess extends React.Component {
   }
   componentWillMount () {
     const xiangdao = [
-        {src:'../src/img/win2008/internent_0.png'},
-        {src:'../src/img/win2008/internent_1.png'},
-        {src:'../src/img/win2008/internent_2.png'},
-        {src:'../src/img/win2008/internent_3.png'},
-        {src:'../src/img/win2008/internent_4.png'},
-        {src:'../src/img/win2008/internent_5.png'},
-        {src:'../src/img/win2008/internent_6.png'}
+        {src:'../src/img/win2008/internent_0.png',next:{left:'684',bottom:'21',width:'150',height:'20'},retur:{left:'34',bottom:'40',width:'790',height:'550'}},
+        {src:'../src/img/win2008/internent_1.png',next:{left:'60',bottom:'480',width:'102',height:'20'},retur:{left:'813',bottom:'580',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/internent_2.png',next:{left:'42',bottom:'451',width:'250',height:'60'},retur:{left:'813',bottom:'580',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/internent_3.png',next:{left:'274',bottom:'147',width:'85',height:'20'},retur:{left:'593',bottom:'484',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/internent_4.png',next:{left:'314',bottom:'253',width:'208',height:'20'},retur:{left:'610',bottom:'472',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/internent_5.png',next:{left:'327',bottom:'313',width:'15',height:'15'},retur:{left:'676',bottom:'444',width:'20px',height:'20px'}},
+        {src:'../src/img/win2008/internent_6.png',next:{left:'504',bottom:'290',width:'126',height:'20'},retur:{left:'615',bottom:'58',width:'78',height:'20px'}}
       ]
     this.setState({img: xiangdao});
-    this.setState({currentImg: xiangdao[0].src});
+    this.setState({currentImg: xiangdao[0]});
   }
   _returnBtn () {
     if (this.state.index == 0) {
-
+      this.props.setIpData({});
     } else {
       this.setState({showForm: false});
       const index = parseInt(this.state.index - 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
@@ -376,7 +420,7 @@ class SetIpProcess extends React.Component {
       this.setState({showForm: true});
     } else {
       const index = parseInt(this.state.index + 1);
-      this.setState({currentImg: this.state.img[index].src});
+      this.setState({currentImg: this.state.img[index]});
       this.setState({index: index});
     }
   }
@@ -422,15 +466,30 @@ class SetIpProcess extends React.Component {
         ipData.seconddns.push("0");
       }
     }
-    this.props.setIpData(ipData);
+    this.props.setIpData({ipData:ipData});
   }
   render () {
     const { showForm } = this.state;
     const _style = {
       ipform: {width:'23',height:'14',border:'none',marginRight:'8'},
       interface: {width:'800px',height:'600px',overflow:'hidden',margin:'0 auto'},
-      btn: {position:'absolute',left:'54',bottom:'0',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'},
-      btn1: {position:'absolute',left:'310',bottom:'180',width:'150',height:'35',border:'1px solid red',cursor:'pointer'},
+      retur: {
+        position:'absolute',
+        left: this.state.currentImg.retur.left || '54',
+        bottom: this.state.currentImg.retur.bottom || '0',
+        width: this.state.currentImg.retur.width || '50px',
+        height: this.state.currentImg.retur.height || '40px',
+        cursor:'pointer'
+      },
+      next: {
+        position:'absolute',
+        left: this.state.currentImg.next.left || '310',
+        bottom: this.state.currentImg.next.bottom || '180',
+        width: this.state.currentImg.next.width || '150',
+        height: this.state.currentImg.next.height || '35',
+        cursor:'pointer'
+      },
+      submit: {position:'absolute',left:'533',bottom:'58',width:'78',height:'20',cursor:'pointer'},
     }
     const form = (
       <div style={{position:'absolute',left:'511',top:'292'}}>
@@ -471,11 +530,11 @@ class SetIpProcess extends React.Component {
     );
     return(
       <div style={_style.interface}>
-        <img src={this.state.currentImg} />
-        <div onClick={this._returnBtn.bind(this)} style={_style.btn}></div>
-        {!showForm && <div onClick={this._nextBtn.bind(this)} style={_style.btn1}></div>}
+        <img src={this.state.currentImg.src} />
+        <div onClick={this._returnBtn.bind(this)} style={_style.retur}></div>
+        {!showForm && <div onClick={this._nextBtn.bind(this)} style={_style.next}></div>}
         {showForm && <div>{form}</div>}
-        {showForm && <div onClick={this._submitBtn.bind(this)} style={_style.btn1}></div>}
+        {showForm && <div onClick={this._submitBtn.bind(this)} style={_style.submit}></div>}
       </div>
     );
   }
@@ -499,35 +558,54 @@ class CmdWindow extends React.Component {
     }
     if (e.which == 13) {
       let i = this.state.output.length - 1;
+      let ipdata = this.props.mystate.ipData;
       if (e.target.value == "ipconfig") {
-        this.state.output.splice(i,1);
-        this.state.output.push(<div key={i.toString()} style={{color:'white'}}>
-        <label style={{marginRight:'10px'}}>管理员@/:</label>
-        <span>{e.target.value}</span></div>);
-        this.state.output.push(
-          <div key={(i + 1).toString()} style={{color:'white',fontSize:'10px'}}>
-            <label>windows IP 配置</label><br/>
-            <label>以太网适配器  本地连接：··········： </label><br/>
-            <label>连接特定的DNS后缀：··············：  </label><br/>
-            <label>本地连接IPv6地址：···············：  </label><br/>
-            <label>IPv4地址：······················：'127.0.0.1'</label><br/>
-            <label>子网掩码：·······················：  </label><br/>
-            <label>默认网关：·························：</label><br/>
-          </div>
-        );
-        this.state.output.push(<div key={(i + 2).toString()} style={{color:'white'}}><label style={{marginRight:'10px'}}>管理员@/:</label>
-          <input onKeyPress={this._keyEvent.bind(this)} style={_style.input}/></div>);
+        if (ipdata.length !== 0) {
+          this.state.output.splice(i,1);
+          this.state.output.push(<div key={i.toString()} style={{color:'white'}}>
+          <label style={{marginRight:'10px'}}> C:\Users\administrator> </label>
+          <span>{e.target.value}</span></div>);
+          for (var i = 0; i < ipdata.length; i++) {
+              let data = ipdata[i]
+              this.state.output.push(
+                <div key={(i + 1).toString()} style={{color:'white',fontSize:'10px'}}>
+                  <label>windows IP 配置</label><br/>
+                  <label>以太网适配器  本地连接：··········：{}</label><br/>
+                  <label>连接特定的DNS后缀：··············：{}</label><br/>
+                  <label>本地连接IPv6地址：···············：</label><br/>
+                  <label>IPv4地址：······················：{data.ip[0] + '.' + data.ip[1] + '.' + data.ip[2] + '.' + data.ip[3]}</label><br/>
+                  <label>子网掩码：·······················：{data.networkmask[0] + '.' + data.networkmask[1] + '.' + data.networkmask[2] + '.' + data.networkmask[3]}</label><br/>
+                  <label>默认网关：·························：{data.gateway[0] + '.' + data.gateway[1] + '.' + data.gateway[2] + '.' + data.gateway[3]}</label><br/>
+                </div>
+              );
+            }
+          this.state.output.push(<div key={(i + ipdata.length + 1).toString()} style={{color:'white'}}><label style={{marginRight:'10px'}}> C:\Users\administrator> </label>
+            <input onKeyPress={this._keyEvent.bind(this)} style={_style.input}/></div>);
+        } else {
+          this.state.output.splice(i,1);
+          this.state.output.push(<div key={i.toString()} style={{color:'white'}}>
+          <label style={{marginRight:'10px'}}> C:\Users\administrator> </label>
+          <span>{e.target.value}</span></div>);
+          this.state.output.push(
+            <div key={(i + 1).toString()} style={{color:'white',fontSize:'10px'}}>
+              未进行IP配置，请配置后再进行查询！
+            </div>
+          );
+          this.state.output.push(<div key={(i + 2).toString()} style={{color:'white'}}><label style={{marginRight:'10px'}}> C:\Users\administrator> </label>
+            <input onKeyPress={this._keyEvent.bind(this)} style={_style.input}/></div>);
+        }
+
       } else {
         this.state.output.splice(i,1);
         this.state.output.push(<div key={i.toString()} style={{color:'white'}}>
-        <label style={{marginRight:'10px'}}>管理员@/:</label>
+        <label style={{marginRight:'10px'}}> C:\Users\administrator> </label>
         <span>{e.target.value}</span></div>);
         this.state.output.push(
           <div key={(i + 1).toString()} style={{color:'white',fontSize:'10px'}}>
             不是内部或外部命令，也不是可运行的程序或批处理文件。
           </div>
         );
-        this.state.output.push(<div key={(i + 2).toString()} style={{color:'white'}}><label style={{marginRight:'10px'}}>管理员@/:</label>
+        this.state.output.push(<div key={(i + 2).toString()} style={{color:'white'}}><label style={{marginRight:'10px'}}> C:\Users\administrator> </label>
           <input onKeyPress={this._keyEvent.bind(this)} style={_style.input}/></div>);
       }
     }
@@ -570,7 +648,7 @@ class CmdWindow extends React.Component {
       this.setState({isDragging:false});
     }
     this.state.output.push(
-      <div key="0" style={{color:'white'}}><label style={{marginRight:'10px'}}>管理员@/:</label>
+      <div key="0" style={{color:'white'}}><label style={{marginRight:'10px'}}> C:\Users\administrator> </label>
       <input onKeyPress={this._keyEvent.bind(this)} style={_style.input}/></div>
     )
   }
@@ -600,7 +678,7 @@ export default class Windows2008 extends React.Component {
       img: null,
       isCmdWindow: false,
       luyouDatalist: [],
-      ipData: null,
+      ipData: [],
       isLuyou: false,
       luyouserver: false,
       manageToolProcess:false,
@@ -638,16 +716,18 @@ export default class Windows2008 extends React.Component {
     this.setState({manageToolProcess: false});
   }
   _setIpData (ipData) {
-    this.setState({ipData: ipData});
+    if (ipData.ipData) {
+      this.state.ipData.push(ipData.ipData);
+    }
     this.setState({ipProcess:false});
   }
   render () {
     const { manageToolProcess, ipProcess, isCmdWindow } = this.state;
     const _style = {
       interface: {width:'800px',height:'600px',overflow:'hidden',margin:'0 auto'},
-      btn: {position:'absolute',left:'54',bottom:'0',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'},
-      btn1: {position:'absolute',right:'54',bottom:'0',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'},
-      btn2: {position:'absolute',left:'54',top:'100',width:'50px',height:'40px',border:'1px solid red',cursor:'pointer'}
+      btn: {position:'absolute',left:'34',bottom:'0',width:'50px',height:'40px',cursor:'pointer'},
+      btn1: {position:'absolute',right:'140',bottom:'10',width:'25px',height:'20px',cursor:'pointer'},
+      btn2: {position:'absolute',left:'40',top:'120',width:'70px',height:'80px',cursor:'pointer'}
     }
     if (manageToolProcess == true) {
       return(<ManageToolProcess
@@ -667,7 +747,7 @@ export default class Windows2008 extends React.Component {
         <div onClick={this._startBtn.bind(this)} style={_style.btn}></div>
         <div onClick={this._internentBtn.bind(this)} style={_style.btn1}></div>
         <div onClick={this._cmdBtn.bind(this)} style={_style.btn2}></div>
-        {isCmdWindow && <CmdWindow />}
+        {isCmdWindow && <CmdWindow mystate={this.state} />}
       </div>
     );
   }
