@@ -10,9 +10,24 @@ var upLoad_folder = '/images/'
 
 
 exports.list = function(req, res) {
-	Component.fetch(function(err, component) {
-		res.send(component)
+	Component.fetch(function(err, components) {
+		res.send(components)
 	})
+}
+
+exports.check = function(req, res) {
+	var name = req.body.name
+	Component
+		.find({
+			name: name
+		})
+		.exec(function(err, component) {
+			if (component[0]) {
+				res.send(202)
+			} else {
+				res.send(200)
+			}
+		})
 }
 
 exports.imgcancel = function(req, res) {

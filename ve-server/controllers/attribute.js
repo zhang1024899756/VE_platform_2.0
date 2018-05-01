@@ -27,3 +27,18 @@ exports.list = function(req, res) {
 		res.send(attribute)
 	})
 }
+
+exports.check = function(req, res) {
+	var name = req.body.name
+	Attribute
+		.find({
+			name: name
+		})
+		.exec(function(err, attribute) {
+			if (attribute[0]) {
+				res.send(202)
+			} else {
+				res.send(200)
+			}
+		})
+}

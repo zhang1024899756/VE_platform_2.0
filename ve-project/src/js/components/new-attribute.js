@@ -1,4 +1,5 @@
 import React from 'react';
+import QueueAnim from 'rc-queue-anim';
 import { Layout, Menu, Icon, Row, Col, Spin } from 'antd';
 import RightSider from './sider';
 import MyHeader from './header';
@@ -16,15 +17,17 @@ export default class NewAttribute extends React.Component {
     }
     return (
       <Layout style={{background: '#C9C9C9'}}>
-        <Header style={{background: '#001529',height: '140px'}}>
-          <MyHeader/>
-        </Header>
-        <Layout style={{ padding:'10px 50px'}}>
-            <Content><Row gutter={16}>
-                <Col span={5}><RightSider current={['4']}/></Col>
-                <Col span={19} style={_style.content}><AttributeForm/></Col>
-            </Row></Content>
-        </Layout>
+        <QueueAnim delay={300} className="demo-content">
+          <Header style={{background: '#001529',height: '140px'}}>
+            <MyHeader/>
+          </Header>
+          <Layout style={{ padding:'10px 50px'}} className="demo-banner" key="demo1">
+              <Content><Row gutter={16}>
+                  <Col span={5} style={{height:'320'}}><RightSider current={['4']}/></Col>
+                  <Col span={19} style={_style.content}><AttributeForm/></Col>
+              </Row></Content>
+          </Layout>
+        </QueueAnim>
       </Layout>
     );
   }

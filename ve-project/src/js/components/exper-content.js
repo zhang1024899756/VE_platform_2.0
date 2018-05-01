@@ -34,7 +34,7 @@ export default class ExperContent extends React.Component {
     this.setState({redirectToReferrer: true})
   }
   render () {
-    const { redirectToReferrer } = this.state;
+    const { redirectToReferrer, content } = this.state;
     const _style = {
       img1: {width: '28px',height: '28px'},
       img2: {
@@ -58,7 +58,10 @@ export default class ExperContent extends React.Component {
       },
       spin: {position: 'absolute',top: '20px',left: '50%'}
     }
-    const path = {pathname:'/workstation'}
+    const path = {
+      pathname:'/workstation',
+      state: content
+    }
     if (redirectToReferrer) {
       return <Redirect push to={path} />;
     }

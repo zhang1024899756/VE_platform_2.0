@@ -36,6 +36,25 @@ class CompForm extends React.Component {
     this.props.form.resetFields();
   }
 
+  _checkNname (rule, value, callback) {
+    console.log(value)
+    const data = {name:value}
+    const myFetchOptions = {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      mode : 'cors',
+      body: JSON.stringify(data)
+    };
+    fetch("http://localhost:8100/component/check",myFetchOptions)
+      .then((res) => {
+        if (res.status == 202) {
+          callback('组件名称已存在！');
+        } else {
+          callback();
+        }
+      })
+  }
+
   _handleSubmit (e) {
     e.preventDefault();//原生的阻止冒泡
     this.props.form.validateFields((err, values) => {
@@ -112,12 +131,12 @@ class CompForm extends React.Component {
         </FormItem>
         <FormItem label="组件名称" {...formItemLayout}>
           {getFieldDecorator('componentName', {
-            rules: [{ required: true, message: '必填字段！' }],
+            rules: [{ required: true, message: '必填字段！' },{ validator: this._checkNname}],
           })(
-            <Input placeholder="name" />
+            <Input placeholder="name"/>
           )}
         </FormItem>
-        <FormItem label="组件描述" {...formItemLayout}>
+        <FormItem label="组件描述" {...richEditerLayout}>
           {getFieldDecorator('componentDescribe', {
             rules: [{ required: true, message: '必填字段！' }],
           })(
@@ -133,7 +152,7 @@ class CompForm extends React.Component {
             </Select>
           )}
         </FormItem>
-        <FormItem label="组件图片" {...formItemLayout}>
+        <FormItem label="组件图片" {...richEditerLayout} extra="组件图片仅支持32*32尺寸大小不超过1M的jpg和png文件。">
           <ComponePictures handleChildValueChange={this._handleChildValueChange.bind(this)}/>
         </FormItem>
         <FormItem {...tailFormItemLayout}>

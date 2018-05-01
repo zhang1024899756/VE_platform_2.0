@@ -11,6 +11,25 @@ class AttrForm extends React.Component {
     this.props.form.resetFields();
   }
 
+  _checkNname (rule, value, callback) {
+    console.log(value)
+    const data = {name:value}
+    const myFetchOptions = {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      mode : 'cors',
+      body: JSON.stringify(data)
+    };
+    fetch("http://localhost:8100/attribute/check",myFetchOptions)
+      .then((res) => {
+        if (res.status == 202) {
+          callback('该name属性已存在！');
+        } else {
+          callback();
+        }
+      })
+  }
+
   _handleSubmit (e) {
     e.preventDefault();//原生的阻止冒泡
     this.props.form.validateFields((err, values) => {
@@ -66,7 +85,7 @@ class AttrForm extends React.Component {
         </FormItem>
         <FormItem label="属性名称" {...formItemLayout}>
           {getFieldDecorator('attrName', {
-            rules: [{ required: true, message: '必填字段！' }],
+            rules: [{ required: true, message: '必填字段！' },{ validator: this._checkNname}],
           })(
             <Input placeholder="name" />
           )}
